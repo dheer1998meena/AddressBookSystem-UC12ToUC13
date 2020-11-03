@@ -3,70 +3,36 @@
 use AddressBook_System;
 --Display all the data.
 select* from Address_Book;
---Creating contact table
-create table contact(
-FirstName varchar(100) not null,
-LastName varchar(100),
-Address varchar(500) not null,
-City varchar(50) not null,
-State varchar(50) not null,
-Zip int not null,
-PhoneNo bigint not null,
-Email varchar(250) not null,
-primary key(FirstName,LastName)
-);
---Adding data into the contact table
-insert into contact values
-('Navya', 'Upadhyay','Sec-3','Kanpurpur', 'UP', 214336,941144552, 'Navya@gmail.com'),
- ('Dheer', 'Meena', 'Sec-2', 'karauli', 'Rajasthan', 211136, 991144552, 'dheer@gmail.com'),
- ('Shubham', 'Nehra', 'Sec-1', 'Agra', 'UP', 217336, 954684552, 'shubham@gmail.com'),
- ('Rajat', 'Baisla', 'Sec-5', 'Patna', 'Bihar', 217336, 969684552 ,'rajat@gmail.com');
- Select * from contact;
- --Creating table contact_type
-create table type(
-SrNo int not null,
-addressContactType varchar(100) not null,
-primary key(SrNo,addressContactType)
-);
---Adding data into the table type
-insert into type values
-(1,'FRIENDS'),
-(2,'PROFESSION'),
-(3,'FAMILY'),
-(4,'EMERGENCY');
-select*from type;
---Creating table contact_type
-create table contact_type(
-FirstName varchar(100) not null,
-LastName varchar(100),
-addressContactType varchar(100) not null
-);
---Adding data into the table contact_type
-insert into contact_type values
-('Navya','Upadhyay','FRIENDS'),
-('Shubham','Nehra','FAMILY');
-select *from contact_type;
---Creating table addressbook
-create table addressbook(
-SrNo int not null,
-addressBookName varchar(100) not null,
-primary key(SrNo,addressBookName)
-);
---Adding values into table
-insert into addressbook values
-(1,'Navya'),
-(2,'Radha'),
-(3,'Shubham'),
-(4,'Rajat');
-select*from addressbook;
---Creating table addressbookname storing bookname for each contact
-create table Addressbookname(
-FirstName varchar(100) not null,
-LastName varchar(100),
-addressBookName varchar(100) not null
-);
---Adding data into table
-insert into Addressbookname values
-('Radha','Yadav','Radha'),
-('Navya','Upadhyay','Radha');
-select*from Addressbookname;
+--Create contact type table for the basic rdbms layout
+create table contact_type
+( addressContactType varchar(50),
+contactId int not null);
+--Insert into the contact type table
+insert into contact_type(contactId, addressContactType)
+values (1000, 'Family'), (1001, 'Friends'),
+(1002, 'Profession'), (1003, 'Profession'),
+(1004, 'Friends');
+--Displaying the columns from the contact type table .
+ select * from contact_type;
+
+ --Create address Detail table for the basic rdbms layout
+create table Address_Details
+( contactId int, City varchar(100) not null, 
+StateName varchar(100) not null, AddressDetails varchar(100) not null);
+--Adding a primary key as Contact id auto generated
+alter table Address_Book add contactId int not null identity(1000,1) primary key;
+--Insert into the address detail table 
+insert into Address_details (contactId, City, StateName,AddressDetails)
+values (1000, 'Kanpur', 'UP', 'Sec-3'), (1001, 'Delhi', 'Delhi', 'Sec-6'),
+(1002, 'Agra', 'UP', 'Sec-1'), (1003, 'Patna', 'Bihar', 'Sec-5'),
+(1004, 'Delhi', 'Delhi', 'Sec-6');
+-- Create address Book table for the basic rdbms layout.
+create table AddressBook
+( addressBookName varchar(50),
+ contactId int not null);
+ /*Insert into the address book table */
+insert into AddressBook(contactId, addressBookName)
+values (1000, 'DheerRecords'), (1001, 'DheerRecords'),
+(1002, 'DheerRecords'), (1003, 'DheerRecords'),
+(1004, 'DheerRecords');
+select*from AddressBook;
